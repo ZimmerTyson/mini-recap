@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="todoInput" placeholder="Enter Item ">
+        <button id="add">Add</button>
+        <div class="listContainer">
+            <h3 id="taskHeadline">Current Tasks:</h3>
+            <ul id="todoList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const todoInput = document.getElementById('todoInput');
+        const add = document.getElementById('add');
+        const todoList = document.getElementById('todoList');
+
+        function addTodo() {
+            const todo = todoInput.value;
+            if (todo === '') return alert('Fill out input please....');
+            //create element li
+            const li = document.createElement('li');
+            // set text to the input value when button clicked
+            li.textContent = todo;
+            const button = document.createElement("button");
+            button.textContent = "Done";
+            button.style.marginLeft = "10px";
+            button.addEventListener("click", function () {
+                li.style.textDecoration = "line-through #2f2f2f";
+            })
+
+
+            //Create a delete button
+
+            li.appendChild(button);
+            // add event listener click to remove
+            // li.addEventListener("click", function () {
+            //     li.remove();
+            // });
+
+            //append element node to todoList
+            todoList.appendChild(li);
+            // Clear input value
+            todoInput.value = "";
+        }
+
+        add.addEventListener("click", addTodo);
+    </script>
+</body>
+</html>

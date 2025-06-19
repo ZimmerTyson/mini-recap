@@ -1,0 +1,13 @@
+button {
+    padding: 15px 20px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: coral;
+}
+
+.hidden {
+    display: none;
+}

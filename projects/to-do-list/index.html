@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title"></h1>
+        </header>
+        <section>
+            <h3 class="section-header"></h3>
+            <p class="description"></p>
+        </section>
+        <section>
+            <h3 class="section-header"></h3>
+            <p class="description"></p>
+        </section>
+        <section>
+            <h3 class="section-header"></h3>
+            <p class="description"></p>
+        </section>
+        <footer id="footerText"></footer>
+    </div>
+
+    <script>
+        const title = document.getElementById("title");
+        title.textContent = "Howdy!";
+        title.style.textAlign = "center";
+        title.style.backgroundColor = "yellow";
+
+
+        const sectionHeaders = document.getElementsByClassName("section-header");
+        console.log(sectionHeaders);
+
+        const descriptionTexts = document.getElementsByClassName("description");
+        console.log(descriptionTexts);
+
+        const sections = document.getElementsByTagName("section")
+
+
+        let headerClickCount = 0;
+        title.addEventListener("click", function () {
+          if (headerClickCount > sectionHeaders.length -1) return;
+          sectionHeaders[headerClickCount].textContent = "Section";
+          descriptionTexts[headerClickCount].textContent = "Description";
+          sections[headerClickCount].style.border = "1px solid grey";
+          sections[headerClickCount].style.padding = "10px";
+          sections[headerClickCount].style.margin = "3px 0";
+          headerClickCount++;
+          
+        })
+    </script>
+</body>
+</html>
+
+
+<!-- ### 1. `getElementById("id")`
+
+- Like calling a friend by name. Only one element has that ID.
+
+### 2. `getElementsByClassName("class")`
+
+- Like calling all your classmates who wear blue shoes. Gets multiple things.
+
+### 3. `querySelector("selector")`
+
+- Grabs **the first** match of anything (like the first paragraph).
+
+### 4. `querySelectorAll("selector")` -->
