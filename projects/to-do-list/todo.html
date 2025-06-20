@@ -14,23 +14,31 @@
             <h3 id="taskHeadline">Current Tasks:</h3>
             <ul id="todoList"></ul>
         </div>
+        <button id="clearAll">Clear All</button>
     </div>
 
     <script>
         const todoInput = document.getElementById('todoInput');
         const add = document.getElementById('add');
         const todoList = document.getElementById('todoList');
+        const clearAll = document.getElementById('clearAll')
+        
 
         function addTodo() {
+
             const todo = todoInput.value;
             if (todo === '') return alert('Fill out input please....');
             //create element li
             const li = document.createElement('li');
+            li.className = "taskItem";
+
             // set text to the input value when button clicked
             li.textContent = todo;
+
             const button = document.createElement("button");
             button.textContent = "Done";
             button.style.marginLeft = "10px";
+
             button.addEventListener("click", function () {
                 li.style.textDecoration = "line-through #2f2f2f";
             })
@@ -50,7 +58,24 @@
             todoInput.value = "";
         }
 
+        function removeAllTasks() {
+            const taskItems = document.getElementsByClassName("taskItem");
+            const taskArray = [...taskItems];
+
+            for (let task of taskArray) {
+                task.remove();
+            }
+
+            // taskArray.forEach((task) => {  // Another way of doing this same thing.
+            //     task.remove();
+            // })
+        }
+       
+
+
         add.addEventListener("click", addTodo);
+        clearAll.addEventListener("click", removeAllTasks);
+        
     </script>
 </body>
 </html>
