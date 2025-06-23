@@ -14,15 +14,15 @@
 
 // 6. Clear the input field after adding the task
 
+renderTodos();
 
-
-function addTask() {
+function addTodo() {
   const todoInput = document.getElementById("todoInput");
   const todoText = todoInput.value.trim();
 
   if (todoText === "") return;
 
-  const todos = JSON.parse(localStorage.getItem("todos") || []);
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
   todos.push(todoText);
 
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -33,8 +33,28 @@ function addTask() {
 
 
 function renderTodos() {
-  const taskList = document.getElementById("taskList");
-  localStorage.getItem();
+  const todoList = document.getElementById("todoList");
+  todoList.innerHTML = "";
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+  todos.forEach((todo, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${todo} <button onclick="removeTodo(${index})"> KILL </button>`;
+    todoList.appendChild(li);
+  });
+}
+
+
+function removeTodo(index) {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  renderTodos();
+}
+
+function clearTodos() {
+  localStorage.removeItem("todos");
+  renderTodos();
 }
 
 // Function displayTasks() to display all tasks from LocalStorage
