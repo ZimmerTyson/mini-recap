@@ -1,21 +1,23 @@
-# Promises
+# Axios
 
 ## ✅ What is it?
-- A **Promise** is like a placeholder for a value that will come later.
-- It either **resolves (success)** or **rejects (error)**.
-- You can handle what happens using `.then()` and `.catch()`.
+
+- A modern JavaScript **library** for making HTTP requests.
+- Built on Promises but has a **simpler and more powerful API**.
+- Automatically parses JSON, supports all methods (GET, POST, etc.).
 
 ## ⚙️ How it works:
-1. You fetch data from an API.
-2. When the server responds, the `.then()` block runs.
-3. If something goes wrong (e.g. network error), `.catch()` runs.
+
+1. Use `axios.get('url')` to make a request.
+2. Handle the result using `.then()` or `await`.
 
 ## 🔍 Where to see it:
-- Open `promise.html` in your browser.
-- It **automatically** runs the code (no button needed).
-- It fetches and displays a random user using `fetch()` + `.then()`.
+
+- Open `axios.html` in your browser.
+- Click the button labeled **"Get User (Axios)"**.
+- It will use Axios to fetch and show a random user.
 
 ## 🚫 Drawbacks:
-- Long chains of `.then()` can become messy.
-- Still not as readable as `async/await`.
-- Requires understanding of how Promises work.
+
+- You need to include Axios separately via CDN or package manager.
+- Slightly bigger than built-in `fetch()`.

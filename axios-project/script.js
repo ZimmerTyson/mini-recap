@@ -5,25 +5,17 @@
 // 1.4 Declare const themeToggle referencing the element with id "themeToggle"
 // 1.5 Declare const userContainer referencing the element with id "userContainer"
 // 1.6 Declare const loader referencing the element with id "loader"
+
 const fetchBtn = document.getElementById("fetchBtn");
 const fetchMultipleBtn = document.getElementById("fetchMultipleBtn");
 const searchInput = document.getElementById("searchInput");
+const themeToggle = document.getElementById("themeToggle");
 const userContainer = document.getElementById("userContainer");
 const loader = document.getElementById("loader");
-const themeToggle = document.getElementById("themeToggle");
 
-// Additional Features - Grab exercise buttons & result container
-// const ex1Btn = document.getElementById("ex1Btn");
-// const ex2Btn = document.getElementById("ex2Btn");
-// const ex3Btn = document.getElementById("ex3Btn");
-// const exerciseResult = document.getElementById("exerciseResult");
 
 // Task 2: Initialize in-memory data storage
 // 2.1 Declare let users as an empty array to hold fetched user objects
-
-// ex1Btn.addEventListener("click", exercise1);
-// ex2Btn.addEventListener("click", exercise2);
-// ex3Btn.addEventListener("click", exercise3);
 
 let users = [];
 
@@ -45,23 +37,27 @@ themeToggle.addEventListener("change", toggleTheme);
 // 4.4 Fetch random users from API using count parameter
 //   4.4.1 On success: hide loader, update users array, call renderUsers(users)
 //   4.4.2 On error: hide loader, display error in userContainer, log error
+
 function fetchUsers(count) {
   users = [];
-  userContainer.innerHTML = "";
+  userContainer.innerHTML = ""; // we use innerHTML to access the contents of user container
   loader.style.display = "block";
+
   axios
-    .get(`https://randomuser.me/api/?results=${count}`)
-    .then((response) => {
-      loader.style.display = "none";
-      users = response.data.results;
-      renderUsers(users);
-    })
-    .catch((error) => {
-      loader.style.display = "none";
-      userContainer.innerHTML = "<p> Error fetching data</p>";
-      console.error(error);
-    });
+  .get(`https://randomuser.me/api/?results=${count}`)
+  .then((response) => {
+    loader.style.display = "none";
+    users = response.data.results;
+    renderUsers(users);
+  })
+
+  .catch((error) => {
+    loader.style.display = "none";
+    userContainer.innerHTML = "<p> Error fetching data</p>";
+    console.error(error);
+  });
 }
+
 
 // Task 5: Implement renderUsers(list) function
 // 5.1 Clear userContainer content
@@ -71,19 +67,22 @@ function fetchUsers(count) {
 //   5.2.3 Populate with picture, name, age, email, location, phone
 //   5.2.4 Append card to userContainer
 
+
 function renderUsers(list) {
   userContainer.innerHTML = "";
+
   list.forEach((user) => {
-    let card = document.createElement("div");
+    const card = document.createElement("div");
     card.className = "user-card";
+
     card.innerHTML = `
-        <img src="${user.picture.medium}" alt="user-picture"/>
-        <h3>Name: ${user.name.first} ${user.name.last}</h3>
-        <p>Age: ${user.dob.age}</p>
-        <p>Email: ${user.email}</p>
-        <p>Located: ${user.location.city} ${user.location.country} </p>
-        <p>Phone-number: ${user.phone}</p>
-        `;
+    <img src="${user.picture.medium}" alt="User Picture">
+    <h3>Name: ${user.name.first} ${user.name.last}</h3>
+    <p>Age: ${user.dob.age}</p>
+    <p>Email: ${user.email}</p>
+    <p>Location: ${user.location.city} ${user.location.country}</p>
+    <p>Phone: ${user.phone}</p>
+    `;
     userContainer.appendChild(card);
   });
 }
@@ -92,23 +91,25 @@ function renderUsers(list) {
 // 6.1 Read and lowercase the value from searchInput
 // 6.2 Filter users array based on term matching full name
 // 6.3 Call renderUsers with filtered array
+
 function filterUsers() {
   let term = searchInput.value.toLowerCase();
   let filtered = users.filter((u) => {
-    let fullName = `${u.name.first} ${u.name.last}`.toLowerCase();
-    return fullName.includes(term);
+   let fullName = `${u.name.first} ${u.name.last}`.toLowerCase();
+   return fullName.includes(term);
   });
-  console.log("This is filterUsers being called");
   renderUsers(filtered);
 }
+
 
 // Task 7: Implement toggleTheme() function
 // 7.1 Toggle the "dark" class on document.body based on themeToggle.checked
 
 function toggleTheme() {
-  document.body.classList.toggle("dark", themeToggle.checked);
-  console.log("This is toggleTheme being called");
+  document.body.classList.toggle("dark", themeToggle.checked)
 }
+
+
 
 // Task 8: exercise1() – Fetch and render 5 US users as cards
 // 8.1 Clear any existing user cards and previous text results
