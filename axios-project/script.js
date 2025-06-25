@@ -13,17 +13,17 @@ const loader = document.getElementById("loader");
 const themeToggle = document.getElementById("themeToggle");
 
 // Additional Features - Grab exercise buttons & result container
-const ex1Btn = document.getElementById("ex1Btn");
-const ex2Btn = document.getElementById("ex2Btn");
-const ex3Btn = document.getElementById("ex3Btn");
-const exerciseResult = document.getElementById("exerciseResult");
+// const ex1Btn = document.getElementById("ex1Btn");
+// const ex2Btn = document.getElementById("ex2Btn");
+// const ex3Btn = document.getElementById("ex3Btn");
+// const exerciseResult = document.getElementById("exerciseResult");
 
 // Task 2: Initialize in-memory data storage
 // 2.1 Declare let users as an empty array to hold fetched user objects
 
-ex1Btn.addEventListener("click", exercise1);
-ex2Btn.addEventListener("click", exercise2);
-ex3Btn.addEventListener("click", exercise3);
+// ex1Btn.addEventListener("click", exercise1);
+// ex2Btn.addEventListener("click", exercise2);
+// ex3Btn.addEventListener("click", exercise3);
 
 let users = [];
 
@@ -123,25 +123,7 @@ function toggleTheme() {
 //     • Show an error message in userContainer
 //     • Log the error to console
 
-function exercise1() {
-  userContainer.innerHTML = "";
-  exerciseResult.textContent = "";
 
-  loader.style.display = "block";
-
-  axios
-    .get("https://randomuser.me/api/?results=5&nat=US")
-    .then((response) => {
-      loader.style.display = "none";
-      users = response.data.results;
-      renderUsers(users);
-    })
-    .catch((err) => {
-      loader.style.display = "none";
-      userContainer.innerHTML = "<p> Error loading users</p>";
-      console.error("Exercise 1 error", err);
-    });
-}
 
 // Task 9: exercise2() – Count males vs. females from the global users
 // 9.1 Clear any existing user cards
@@ -151,23 +133,7 @@ function exercise1() {
 // 9.5 Otherwise, tally gender counts in the global `users` array
 // 9.6 Display the counts in exerciseResult
 
-function exercise2() {
-  userContainer.innerHTML = "";
-  exerciseResult.textContent = "Counting..";
-  loader.style.display = "none";
-
-  if (!users.length) {
-    exerciseResult.textContent = "Run Exercise 1 first to load users";
-    return;
-  }
-  let maleCount = 0;
-  let femaleCount = 0;
-  users.forEach((u) => {
-    if (u.gender === "male") maleCount++;
-    else if (u.gender === "female") femaleCount++;
-  });
-  exerciseResult.textContent = `Males: ${maleCount} Females: ${femaleCount} `;
-}
+ 
 
 // Task 10: exercise3() – Compute average age from the global users
 // 10.1 Clear any existing user cards
@@ -178,19 +144,3 @@ function exercise2() {
 // 10.6 Calculate average age (totalAge / number of users), rounded to one decimal place
 // 10.7 Display the average in exerciseResult
 
-function exercise3() {
-  userContainer.innerHTML = "";
-  exerciseResult.textContent = "Calculating...";
-  loader.style.display = "none";
-
-  if (!users.length) {
-    exerciseResult.textContent = "Run Exercise 1 first to load users.";
-    return;
-  }
-
-  const totalAge = users.reduce((sum, u) => sum + u.dob.age, 0);
-
-  const average = (totalAge / users.length).toFixed(1);
-
-  exerciseResult.textContent = `Average Age: ${average} `;
-}
