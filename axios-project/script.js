@@ -1,5 +1,5 @@
-// Task 1: Grab references to specific DOM elements by id
 // 1.1 Declare const fetchBtn referencing the element with id "fetchBtn"
+// Task 1: Grab references to specific DOM elements by id
 // 1.2 Declare const fetchMultipleBtn referencing the element with id "fetchMultipleBtn"
 // 1.3 Declare const searchInput referencing the element with id "searchInput"
 // 1.4 Declare const themeToggle referencing the element with id "themeToggle"
@@ -8,11 +8,23 @@
 
 const fetchBtn = document.getElementById("fetchBtn");
 const fetchMultipleBtn = document.getElementById("fetchMultipleBtn");
+const exercise1 = document.getElementById("exercise1");
+const exercise2 = document.getElementById("exercise2");
+const exercise3 = document.getElementById("exercise3");
 const searchInput = document.getElementById("searchInput");
 const themeToggle = document.getElementById("themeToggle");
 const userContainer = document.getElementById("userContainer");
 const loader = document.getElementById("loader");
+const exerciseResult = document.getElementById("exerciseResult");
 
+
+fetchBtn.addEventListener("click", () => fetchUsers(1));
+fetchMultipleBtn.addEventListener("click", () => fetchUsers(5));
+exercise1.addEventListener("click", exerciseFilter1);
+exercise2.addEventListener("click", exerciseFilter2);
+exercise3.addEventListener("click", exerciseFilter3);
+searchInput.addEventListener("input", filterUsers);
+themeToggle.addEventListener("change", toggleTheme);
 
 // Task 2: Initialize in-memory data storage
 // 2.1 Declare let users as an empty array to hold fetched user objects
@@ -25,10 +37,7 @@ let users = [];
 // 3.3 Add an input listener on searchInput that calls filterUsers()
 // 3.4 Add a change listener on themeToggle that calls toggleTheme()
 
-fetchBtn.addEventListener("click", () => fetchUsers(1));
-fetchMultipleBtn.addEventListener("click", () => fetchUsers(5));
-searchInput.addEventListener("input", filterUsers);
-themeToggle.addEventListener("change", toggleTheme);
+
 
 // Task 4: Implement fetchUsers(count) function
 // 4.1 Reset users to an empty array
@@ -124,6 +133,26 @@ function toggleTheme() {
 //     • Show an error message in userContainer
 //     • Log the error to console
 
+function exerciseFilter1() {
+  userContainer.innerHTML = "";
+  exerciseResult.textContent = "";
+
+  loader.style.display = "block";
+
+  axios
+  .get("https://randomuser.me/api/?results=5&nat=US")
+  .then((response) => {
+    loader.style.display = "none";
+    users = response.data.results;
+    renderUsers(users);
+  })
+  .catch((err) => {
+    loader.style.display = "none";
+    userContainer.innerHTML = "<p> Error Loading Users</p>";
+    console.error("Exercise 1 error", err);
+  });
+}
+
 
 
 // Task 9: exercise2() – Count males vs. females from the global users
@@ -134,14 +163,46 @@ function toggleTheme() {
 // 9.5 Otherwise, tally gender counts in the global `users` array
 // 9.6 Display the counts in exerciseResult
 
- 
+function exerciseFilter2() {
+  userContainer.innerHTML = "";
+  exerciseResult.textContent = "Counting...";
+  loader.style.display = "none";
 
+  if(!users.length) {
+    exerciseResult.textContent = "Run Exercise 1 first to load users";
+    return;
+  }
+  let maleCount = 0;
+  let femaleCount = 0;
+
+  users.forEach((u) => {
+    if(u.gender === "male" ) maleCount++;
+    else if(u.gender === "female") femaleCount++;
+  });
+  exerciseResult.textContent = `Males: ${maleCount} Females: ${femaleCount}`;
+}
+
+ // 10.6 Calculate average age (totalAge / number of users), rounded to one decimal place
 // Task 10: exercise3() – Compute average age from the global users
 // 10.1 Clear any existing user cards
 // 10.2 Show a “Calculating…” message in exerciseResult
 // 10.3 Hide the loader (no new fetch here)
 // 10.4 If no users are loaded yet, prompt to run Exercise 1 first and exit
 // 10.5 Sum all ages in the global `users` array
-// 10.6 Calculate average age (totalAge / number of users), rounded to one decimal place
 // 10.7 Display the average in exerciseResult
 
+function exerciseFilter3() {
+  userContainer.innerHTML = "";
+  exerciseResult.textContent = "Calculating...";
+  loader.style.display = "none";
+
+  if(!users) {
+    exerciseResult.textContent = "Run Exercise 1 first to load users.";
+    return;
+  }
+  const totalAge = users.reduce((sum, u) => sum + u.dob.age, 0);
+
+  const average = (totalAge / users.length).toFixed(1);
+
+  exerciseResult.textContent = `Average Age: ${average}`;
+}
