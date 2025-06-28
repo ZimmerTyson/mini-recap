@@ -197,7 +197,7 @@ function exerciseFilter3() {
   loader.style.display = "none";
 
   if(!users) {
-    exerciseResult.textContent = "Run Exercise 1 first to load users.";
+    exerciseResult.textContent = "Run Exercise 1 first to load users."; // if no users have been loaded yet, it won't run any further and will return;
     return;
   }
   const totalAge = users.reduce((sum, u) => sum + u.dob.age, 0);
