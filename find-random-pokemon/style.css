@@ -9,6 +9,12 @@ body {
   box-sizing: border-box;
 }
 
+#searchContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .pokemon-card {
   margin: 10px auto 20px auto;
   padding: 5px;
