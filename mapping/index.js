@@ -46,16 +46,51 @@ console.log(letters.map((letter) => letter + '!'));
 const bool = [true, false, true, true];
 
 console.log(bool.map(function (value) {
-  if(bool.value === true) {
-    
-  }}
+  return !value;
+  }
+
 ))
 
 // Example 7: Add 'yrs' to each age using map
 
+const age = [10, 20, 30, 40];
+
+console.log(age.map(function (number) {
+  return `${number} yrs`;
+}))
 
 // Example 8: Get length of each name using map
 
+const names = ['bob', 'janice', 'cliff', 'buddy', 'tyson'];
+
+console.log(names.map(function (name) {
+  return name.length;
+}))
+
 // Example 9: Convert Celsius to Fahrenheit using map
 
+const temperature = [28, 69, 20, 75];
+
+console.log(temperature.map(function (temp) {
+  return (temp * 9/5) + 32;
+}))
+
 // Example 10: Prefix IDs with 'ID-' using map
+
+const idNumbers = [1234, 44324, 23523, 26532];
+
+console.log(idNumbers.map(function (id) {
+  return `ID-${id}`;
+}))
+
+
+// Example 11: capitalize the color green in the array
+
+const colors = ['blue', 'green', 'red'];
+
+console.log(colors.map(function (color) {
+  if (color === 'green') {
+    return color.toUpperCase();
+  }
+  return color.charAt(0).toUpperCase() + color.slice(1);
+}))
